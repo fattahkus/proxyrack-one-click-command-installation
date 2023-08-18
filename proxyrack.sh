@@ -113,6 +113,7 @@ container_build(){
   docker pull proxyrack/pop
   docker run -d --name "$NAME" --restart always -e api_key="$PRTOKEN" -e device_name="$dname" proxyrack/pop
   dvid=$(docker exec -it "$NAME" cat uuid.cfg)
+  echo "device_id=$dvid device_name=$dname"
   sleep 60
   curl \
     -X POST https://peer.proxyrack.com/api/device/add \
