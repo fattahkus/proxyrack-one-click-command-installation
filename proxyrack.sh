@@ -119,7 +119,7 @@ container_build(){
   # sleep 60
   curl \
     -X POST https://peer.proxyrack.com/api/device/add \
-    -H 'Api-Key: '$PRTOKEN'' \
+    -H 'Api-Key: $PRTOKEN' \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json' \
     -d '{\"device_id\":\"'$dvid'\",\"device_name\":\"'$dname'\"}'
