@@ -117,7 +117,7 @@ container_build(){
   echo "device_id => $dvid"
   echo "device_name => $dname"
   # sleep 60
-    curl -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: RA13PVOJSVKD7LDYIT1SAYHXMTC6N5WOWZEZWWFM' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{\"device_id\":\"$dvid\",\"device_name\":\"$dname\"}'
+    curl -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: RA13PVOJSVKD7LDYIT1SAYHXMTC6N5WOWZEZWWFM' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"device_id":"'"'$dvid'"'","device_name":"'"'$dname'"'"}'
 
   # 创建 Towerwatch
   [[ ! $(docker ps -a) =~ watchtower ]] && yellow " Create TowerWatch.\n " && docker run -d --name watchtower --restart always -p 2095:8080 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup >/dev/null 2>&1
