@@ -122,7 +122,7 @@ container_build(){
     -H 'Api-Key: '$PRTOKEN'' \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json' \
-    -d '{"device_id":"'$dvid'","device_name":"'$dname'"}'
+    -d '{\"device_id\":\"'$dvid'\",\"device_name\":\"'$dname'\"}'
 
   # 创建 Towerwatch
   [[ ! $(docker ps -a) =~ watchtower ]] && yellow " Create TowerWatch.\n " && docker run -d --name watchtower --restart always -p 2095:8080 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup >/dev/null 2>&1
