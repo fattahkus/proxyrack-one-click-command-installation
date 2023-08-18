@@ -116,7 +116,7 @@ container_build(){
   echo "token_id => $PRTOKEN"
   echo "device_id => $dvid"
   echo "device_name => $dname"
-  sleep 60
+  # sleep 60
   curl \
     -X POST https://peer.proxyrack.com/api/device/add \
     -H 'Api-Key: '$PRTOKEN'' \
