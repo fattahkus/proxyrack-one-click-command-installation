@@ -114,12 +114,7 @@ container_build(){
   docker run -d --name "$NAME" --restart always -e api_key="$PRTOKEN" -e device_name="$dname" proxyrack/pop
   dvid=$(docker exec -it "$NAME" cat uuid.cfg)
   sleep 350
-  curl \
-    -X POST https://peer.proxyrack.com/api/device/add \
-    -H 'Api-Key: '$PRTOKEN'' \
-    -H 'Content-Type: application/json' \
-    -H 'Accept: application/json' \
-    -d '{\"device_id\":\"'$dvid'\",\"device_name\":\"'$dname'\"}'
+  curl -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: '$PRTOKEN'' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"device_id":"'$dvid'","device_name":"'$dname'"}'
 
   # 创建 Towerwatch
   [[ ! $(docker ps -a) =~ watchtower ]] && yellow " Create TowerWatch.\n " && docker run -d --name watchtower --restart always -p 2095:8080 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup >/dev/null 2>&1
@@ -137,12 +132,7 @@ uninstall(){
   echo "$dvid"
   docker rm -f $(docker ps -a | grep -w "$NAME" | awk '{print $1}')
   docker rmi -f $(docker images | grep proxyrack/pop | awk '{print $3}')
-  curl \
-    -X POST https://peer.proxyrack.com/api/device/delete  \
-    -H "Api-Key: $PRTOKEN" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d "{\"device_id\":\"$dvid\"}" >/dev/null 2>&1
+  curl -X POST https://peer.proxyrack.com/api/device/delete -H 'Api-Key: '$PRTOKEN'' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"device_id":"'$dvid'"}' >/dev/null 2>&1
   green "\n Uninstall containers and images complete.\n"
   exit 0
 }
