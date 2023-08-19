@@ -113,9 +113,10 @@ container_build(){
   docker pull proxyrack/pop
   docker run -d --name "$NAME" --restart always -e api_key="$PRTOKEN" -e device_name="$dname" proxyrack/pop
   dvid=$(docker exec -it "$NAME" cat uuid.cfg)
-  echo "token_id => $PRTOKEN"
-  echo "device_id => $dvid"
-  echo "device_name => $dname"
+  sudo docker exec -it proxyrack cat uuid.cfg
+  # echo "token_id => $PRTOKEN"
+  # echo "device_id => $dvid"
+  # echo "device_name => $dname"
   
   # 创建 Towerwatch
   [[ ! $(docker ps -a) =~ watchtower ]] && yellow " Create TowerWatch.\n " && docker run -d --name watchtower --restart always -p 2095:8080 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup >/dev/null 2>&1
@@ -135,7 +136,7 @@ reg_device(){
 
   response="$(echo "$register")"
   echo "$response"
-  
+
   echo "trying to register a device : curl \
     -X POST https://peer.proxyrack.com/api/device/add \
     -H 'Api-Key: $token_id' \
