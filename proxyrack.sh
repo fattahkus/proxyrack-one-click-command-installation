@@ -121,11 +121,11 @@ container_build(){
   [[ ! $(docker ps -a) =~ watchtower ]] && yellow " Create TowerWatch.\n " && docker run -d --name watchtower --restart always -p 2095:8080 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup >/dev/null 2>&1
 }
 reg_device(){
-  token_id=$PRTOKEN
-  device_id=$dvid
-  device_name=$dname
+  token_id='$PRTOKEN'
+  device_id='$dvid'
+  device_name='$dname'
 
-  register=`curl -d '{"device_id":"$dvid","device_name":"$dname"}' -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: '$token_id'' -H 'Content-Type: application/json' -H 'Accept: application/json' --compressed -D - -s -L`
+  register=`curl -d '{"device_id":"$device_id","device_name":"$device_name"}' -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: '$token_id'' -H 'Content-Type: application/json' -H 'Accept: application/json' --compressed -D - -s -L`
   response="$(echo "$register")"
   echo "trying to register a device : $response"
 }
