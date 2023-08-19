@@ -182,6 +182,6 @@ check_ipv4
 check_virt
 input_token
 container_build
-sleep 180
+# sleep 180
 reg_device
 result
