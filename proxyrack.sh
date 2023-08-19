@@ -125,9 +125,9 @@ reg_device(){
   device_id=$dvid
   device_name=$dname
 
-  register=`curl -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: RA13PVOJSVKD7LDYIT1SAYHXMTC6N5WOWZEZWWFM' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"device_id":"$dvid","device_name":"$dname"}' --compressed -D - -s -L`
-
-  echo "trying to register a device : $register"
+  register=`curl -d '{"device_id":"$dvid","device_name":"$dname"}' -X POST https://peer.proxyrack.com/api/device/add -H 'Api-Key: '$token_id'' -H 'Content-Type: application/json' -H 'Accept: application/json' --compressed -D - -s -L`
+  response="$(echo "$register")"
+  echo "trying to register a device : $response"
 }
 
 # 显示结果
