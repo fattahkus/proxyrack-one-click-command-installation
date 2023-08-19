@@ -132,8 +132,10 @@ reg_device(){
     -H 'Content-Type: application/json'
     -H 'Accept: application/json'
     -d '{"'"'device_id'"'":"'"'$device_id'"'","'"'device_name'"'":"'"'$device_name'"'"}' --compressed -D - -s -L`
+    
   response="$(echo "$register")"
   echo "$response"
+
   echo "trying to register a device : curl
     -X POST https://peer.proxyrack.com/api/device/add
     -H 'Api-Key: $token_id'
