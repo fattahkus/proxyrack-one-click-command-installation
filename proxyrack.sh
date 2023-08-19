@@ -182,5 +182,6 @@ check_ipv4
 check_virt
 input_token
 container_build
+sleep 60
 reg_device
 result
